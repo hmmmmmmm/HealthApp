@@ -11,7 +11,7 @@ if(isset($_SESSION['user'])){
     $navbuttons='<li><a href="register.php">Register</a></li> <li><a href="login.php">Login</a></li>';
 }
 ?>
-
+<link href="default.css" rel="stylesheet">
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="menu-icon">
         <span class="fas fa-bars"></span>
