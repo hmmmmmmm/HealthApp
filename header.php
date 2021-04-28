@@ -1,39 +1,39 @@
 <?php
 if(isset($_SESSION['admin']) && $_SESSION['admin']){
-    $adminbutton='<a class="nav-link" href="admin.php">Admin</a>';
+    $adminbutton='<li><a href="admin.php">Admin</a></li>';
 } else {
     $adminbutton='';
 }
 
 if(isset($_SESSION['user'])){
-    $navbuttons='<a class="nav-link" href="logout.php">Logout</a>';
+    $navbuttons='<li><a href="logout.php">Logout</a></li>';
 } else {
-    $navbuttons='<a class="nav-link" href="register.php">Register</a> </li> <li class="nav-item"> <a class="nav-link" href="login.php">Login</a>';
+    $navbuttons='<li><a href="register.php">Register</a></li> <li><a href="login.php">Login</a></li>';
 }
 ?>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="home.php">A3 Health</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarButtons">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="home.php">Home</a>
-                </li>
-                <li class="nav-item">
-                    <?php echo $adminbutton ?>
-                </li>
-            </ul>
-        </div>
-        <div class="collapse navbar-collapse justify-content-end">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <?php echo $navbuttons ?>
-                </li>
-            </ul>
-        </div>
+    <div class="menu-icon">
+        <span class="fas fa-bars"></span>
     </div>
+
+    <div class="logo">
+        A3 Health
+    </div>
+
+    <div class="nav-items">
+        <li><a href="home.php">Home</a></li>
+        <?php echo $adminbutton ?>
+        <?php echo $navbuttons ?>
+    </div>
+
+    <script>
+        const menuBtn = document.querySelector(".menu-icon span");
+        const items = document.querySelector(".nav-items");
+
+        menuBtn.onClick = ()=>{
+            items.classList.add("active");
+            menuBtn.classList.add("hide");
+        }
+    </script>
 </nav>
