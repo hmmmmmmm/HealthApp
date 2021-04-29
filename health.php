@@ -48,7 +48,8 @@
         Please enter the date of your reminder/appointment followed by the details
 
             <form action="health.php" name="appointment" method="POST">
-                Date of Reminder/Appointment: <input type="datetime-local" name="reminderdate" > <br>
+                Date of Reminder/Appointment: <input type="date" name="reminderdate"> <br>
+                Time of Reminder/Appointment: <input type="time" name="remindertime"> <br>
                 Reminder Details: <input type="text" name="reminderdetails"> <br>
                 <input type="submit" name="appointment" value="Save Reminder/Appointment">
             </form>
@@ -120,10 +121,14 @@
             }
         } else if(isset($_POST['appointment'])){
             if(!empty($_POST['reminderdate']) && !empty($_POST['reminderdetails'])){
-                $reminderdate = $_POST['reminderdate'];
+                $reminderdate = new DateTime($_POST['reminderdate']);
+                $remindertime = new DateTime($_POST['remindertime']);
+                $reminderdate->setTime($remindertime->format('H'), $remindertime->format('i'), $remindertime->format('s'));
+                $datetime = $reminderdate->format('Y-m-d H:i:s');
+                
                 $reminderdetails = $_POST['reminderdetails'];
 
-                $query = "INSERT INTO reminders(user_id, timestamp, reminderdate, reminderdetails) VALUES ('$user_id', '$timestamp', '$reminderdate', '$reminderdetails')";
+                $query = "INSERT INTO reminders(user_id, timestamp, reminderdate, reminderdetails) VALUES ('$user_id', '$timestamp', '$datetime', '$reminderdetails')";
             } else {
                 echo "All fields required";
             }
