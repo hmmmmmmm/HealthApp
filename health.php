@@ -22,7 +22,7 @@
         
 
         <div class="form" id="addhdata" style="display:none;">
-            Please enter your Physiological Data Below <br>
+            Please enter your Physiological Data below <br>
             <form action="health.php" name="physio" method="POST">
                 Heartbeat/Pulse rate: <input type="text" name="heartrate" > <br>
                 Body Temperature: <input type="text" name="bodtemp"> <br>
@@ -35,12 +35,12 @@
         </div>
 
         <div class="form" id="addexercise" style="display:none;">
-        Please enter your Exercise Details Below
+        Please enter your Exercise Details below
             <form action="health.php" name="exercise" method="POST">
                 Exercise Name: <input type="text" name="ename" > <br>
                 Exercise Duration: <input type="text" name="etime"> <br>
                 Exercise Notes: <input type="text" name="enotes"> <br>
-                <input type="submit" name="exercise" value="Save Excercise Details">
+                <input type="submit" name="exercise" value="Save Exercise Details">
             </form>
         </div>
 

@@ -101,22 +101,22 @@
         <button onclick="toggleMexercise()">Manage Exercises</button>
         <button onclick="toggleMreminders()">Manage Reminders</button>
         
-        <div id="manageuser" style="display: none;"><br>
+        <div class="form" id="manageuser" style="display: none;">
             <?php 
                 echo '<table border="0" cellspacing="2" cellpadding="2"> 
-                <tr> 
-                    <td> USER ID </td> 
-                    <td> Username </td> 
-                    <td> Password </td> 
-                    <td> Admin Rights </td> 
-                </tr>';
+                    <tr> 
+                    <td>USER ID</td>
+                    <td>Username</td>
+                    <td>Password</td>
+                    <td>Admin Rights</td>
+                    </tr>';
 
                 foreach($users as $row){
                     echo '<tr>
-                        <td>'.$row['id'].'</td> 
-                        <td>'.$row['username'].'</td> 
-                        <td>'.$row['password'].'</td> 
-                        <td>'.$row['admin'].'</td> 
+                        <td>'.$row['id'].'</td>
+                        <td>'.$row['username'].'</td>
+                        <td>'.$row['password'].'</td>
+                        <td>'.$row['admin'].'</td>
                         </tr>';
                 }
                 echo '</table>';
@@ -129,16 +129,14 @@
                 <input type="submit" value="Update Details">
             </form>
         </div>
-        <br>
-        <div id="manageuserdata" style="display: none;">
-            <br>
+        <div class="form" id="manageuserdata" style="display: none;">
             <?php 
                 echo '<table border="0" cellspacing="2" cellpadding="2"> 
                     <tr>
-                    <td> USER ID </td> 
-                    <td> First Names </td> 
-                    <td> Surname </td> 
-                    <td> Date of Birth </td> 
+                    <td>USER ID</td>
+                    <td>First Names</td>
+                    <td>Surname</td>
+                    <td>Date of Birth</td>
                     </tr>';
 
                 foreach($user_details as $row){
@@ -160,25 +158,25 @@
                 <input type="submit" value="Update Details">
             </form>
         </div>
-        <br>
-        <div id="managehealthdata" style="display: none;">
-            <br>
+        <div class="form" id="managehealthdata" style="display: none;">
             <?php 
                 echo '<table border="0" cellspacing="2" cellpadding="2"> 
                     <tr>
-                    <td> USER ID</td> 
-                    <td> Timstamp</td> 
-                    <td> Heart Rate</td> 
-                    <td> Body Temp</td>  
-                    <td> Blood Pressure</td>  
-                    <td> Blood Oxygen</td>  
-                    <td> Breathing Rate</td>  
-                    <td> ECG Details</td> 
+                    <td>USER ID</td>
+                    <td>Checkin ID</td>
+                    <td>Timestamp</td>
+                    <td>Heart Rate</td>
+                    <td>Body Temp</td>
+                    <td>Blood Pressure</td>
+                    <td>Blood Oxygen</td>
+                    <td>Breathing Rate</td>
+                    <td>ECG Details</td>
                     </tr>';
                 
                 foreach($health_data as $row){
 
                     $huserid = $row["user_id"];
+                    $checkin_id = $row["checkin_id"];
                     $htimestamp = $row["timestamp"];
                     $hheartrate = $row["heartrate"];
                     $hhbodtemp = $row["bodtemp"];
@@ -188,22 +186,24 @@
                     $hecgdet = $row["ecgdet"];
 
                     echo '<tr>
-                        <td>'.$huserid.'</td> 
-                        <td>'.$htimestamp.'</td> 
-                        <td>'.$hheartrate.'</td> 
-                        <td>'.$hhbodtemp.'</td> 
-                        <td>'.$hblpressure.'</td> 
-                        <td>'.$hbloxygen.'</td> 
-                        <td>'.$hbreathrate.'</td> 
-                        <td>'.$hecgdet.'</td> 
+                        <td>'.$huserid.'</td>
+                        <td>'.$checkin_id.'</td>
+                        <td>'.$htimestamp.'</td>
+                        <td>'.$hheartrate.'</td>
+                        <td>'.$hhbodtemp.'</td>
+                        <td>'.$hblpressure.'</td>
+                        <td>'.$hbloxygen.'</td>
+                        <td>'.$hbreathrate.'</td>
+                        <td>'.$hecgdet.'</td>
                         </tr>';
                 }
                 echo '</table>';
             ?> 
             <br>
+            Enter the details to modify below:
             <form action="" method="POST">
                 User Id: <input type="text" name="" > <br>
-                User Data Record: <input type="text" name="" > <br>
+                Checkin ID: <input type="text" name="" > <br>
                 Heartbeat/Pulse rate: <input type="text" name="" > <br>
                 Body Temperature: <input type="text" name=""> <br>
                 Blood Pressure: <input type="text" name=""> <br>
@@ -213,9 +213,7 @@
                 <input type="submit" value="Update Details">
             </form>
         </div>
-        <br>
-        <div id="manageexercise" style="display: none;">
-            <br>
+        <div class="form" id="manageexercise" style="display: none;">
             <?php 
                 echo '<table border="0" cellspacing="2" cellpadding="2"> 
                     <tr>
@@ -246,15 +244,17 @@
                         </tr>';
                 }
                 echo '</table>';
-            ?> 
-            <form action="" method="POST">
-                Exercise ID <input type="text" name="exercise_id" > <br>
-                <input type="submit" value="Update Details">
+            ?>
+            <br>
+            Please enter the Exercise Details to modify below
+            <form action="" name="exercise" method="POST">
+                Exercise Name: <input type="text" name="ename" > <br>
+                Exercise Duration: <input type="text" name="etime"> <br>
+                Exercise Notes: <input type="text" name="enotes"> <br>
+                <input type="submit" name="exercise" value="Save Exercise Details">
             </form>
         </div>
-        <br>
-        <div id="managereminders" style="display: none;">
-            <br>
+        <div class="form" id="managereminders" style="display: none;">
             <?php 
                 echo '<table border="0" cellspacing="2" cellpadding="2"> 
                     <tr>
@@ -282,10 +282,17 @@
                         </tr>';
                 }
                 echo '</table>';
-            ?> 
-            <form action="" method="POST">
-                Reminder ID <input type="text" name="" > <br>
-                <input type="submit" value="Update Details">
+            ?>
+            <br>
+            Please enter the date of your reminder/appointment followed by the details
+    
+            <form action="" name="appointment" method="POST">
+                User ID: <input type="text" name="ruserid"> <br>
+                Reminder ID: <input type="text" name="reminder_id"> <br>
+                Date of Reminder/Appointment: <input type="date" name="reminderdate"> <br>
+                Time of Reminder/Appointment: <input type="time" name="remindertime"> <br>
+                Reminder Details: <input type="text" name="reminderdetails"> <br>
+                <input type="submit" name="appointment" value="Save Reminder/Appointment">
             </form>
         </div>
     </body>
