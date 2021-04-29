@@ -16,43 +16,6 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Admin Hub - Manage All Data</title>
-        <script>
-            function toggleMusers() {
-                var x = document.getElementById("manageuser");
-                if (x.style.display === "none") {
-                    x.style.display = "block";
-                } else {
-                    x.style.display = "none";
-                }
-            }
-
-            function toggleMuserdata() {
-                var x = document.getElementById("manageuserdata");
-                if (x.style.display === "none") {
-                    x.style.display = "block";
-                } else {
-                    x.style.display = "none";
-                }
-            }
-
-            function toggleMhealthdata() {
-                var x = document.getElementById("managehealthdata");
-                if (x.style.display === "none") {
-                    x.style.display = "block";
-                } else {
-                    x.style.display = "none";
-                }
-            }
-
-            function toggleMexercise() {
-                var x = document.getElementById("manageexercise");
-                if (x.style.display === "none") {
-                    x.style.display = "block";
-                } else {
-                    x.style.display = "none";
-                }
-            }
-        </script>
     </head>
     <body>
         <?php include 'header.php'?>
@@ -62,6 +25,7 @@
         <button onclick="toggleMuserdata()">Manage User Data</button>
         <button onclick="toggleMhealthdata()">Manage Health Data</button>
         <button onclick="toggleMexercise()">Manage Exercises</button>
+        <button onclick="toggleMreminders()">Manage Reminders</button>
         
         <div id="manageuser" style="display: none;"><br>
             <?php 
@@ -217,5 +181,13 @@
                 <input type="submit" value="Update Details">
             </form>
         </div>
+        <br>
+        <div id="managereminders" style="display: none;"> <br>
+            <form action="" method="POST">
+                Reminder ID <input type="text" name="" > <br>
+                <input type="submit" value="Update Details">
+            </form>
+        </div>
     </body>
+    <script src="toggledisplay.js"></script>
 </html>

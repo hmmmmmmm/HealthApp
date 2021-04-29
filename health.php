@@ -54,34 +54,8 @@
                 <input type="submit" name="appointment" value="Save Reminder/Appointment">
             </form>
         </div>
-
-        <script>
-            function toggledisphdata() {
-                var x = document.getElementById("addhdata");
-                if (x.style.display === "none") {
-                    x.style.display = "block";
-                } else {
-                    x.style.display = "none";
-                }
-            }
-            function toggleexercise() {
-                var x = document.getElementById("addexercise");
-                if (x.style.display === "none") {
-                    x.style.display = "block";
-                } else {
-                    x.style.display = "none";
-                }
-            }
-            function togglereminder() {
-                var x = document.getElementById("addreminder");
-                if (x.style.display === "none") {
-                    x.style.display = "block";
-                } else {
-                    x.style.display = "none";
-                }
-            }
-        </script>
     </body>
+    <script src="toggledisplay.js"></script>
 </html>
 
 <?php
