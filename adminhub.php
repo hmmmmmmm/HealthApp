@@ -151,7 +151,7 @@
             ?> 
             <br>
             <form action="adminhub.php" name="update_user_details" method="POST">
-                User Id: <input type="text" name="" > <br>
+                User ID: <input type="text" name="" > <br>
                 First Names: <input type="text" name="" > <br>
                 Surname: <input type="text" name="" > <br>
                 Date of Birth: <input type="date" name=""> <br>
@@ -202,7 +202,7 @@
             <br>
             Enter the details to modify below:
             <form action="adminhub.php" name="update_physio" method="POST">
-                User Id: <input type="text" name="" > <br>
+                User ID: <input type="text" name="" > <br>
                 Checkin ID: <input type="text" name="" > <br>
                 Heartbeat/Pulse rate: <input type="text" name="" > <br>
                 Body Temperature: <input type="text" name=""> <br>
@@ -248,7 +248,8 @@
             <br>
             Please enter the Exercise Details to modify below
             <form action="adminhub.php" name="update_exercise" method="POST">
-                Exercise Name: <input type="text" name="ename" > <br>
+                Exercise ID: <input type = "text" name="exercise_id"> <br>
+                Exercise Name: <input type="text" name="ename"> <br>
                 Exercise Duration: <input type="text" name="etime"> <br>
                 Exercise Notes: <input type="text" name="enotes"> <br>
                 <input type="submit" name="exercise" value="Save Exercise Details">
@@ -287,7 +288,6 @@
             Please enter the date of your reminder/appointment followed by the details
     
             <form action="adminhub.php" name="update_appointment" method="POST">
-                User ID: <input type="text" name="ruserid"> <br>
                 Reminder ID: <input type="text" name="reminder_id"> <br>
                 Date of Reminder/Appointment: <input type="date" name="reminderdate"> <br>
                 Time of Reminder/Appointment: <input type="time" name="remindertime"> <br>
