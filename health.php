@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <?php session_start(); ?>
+        <?php session_start();
+        if(!$_SESSION['user']) {
+            header("location: index.php");
+        }
+        $user = $_SESSION['user']; ?>
         <link href="default.css" rel="stylesheet">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">

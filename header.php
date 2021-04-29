@@ -1,6 +1,6 @@
 <?php
 if(isset($_SESSION['admin']) && $_SESSION['admin']){
-    $adminbutton='<li><a href="admin.php">Admin</a></li>';
+    $adminbutton='<li><a href="adminhub.php">Admin</a></li>';
 } else {
     $adminbutton='';
 }
