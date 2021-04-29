@@ -26,8 +26,8 @@
                 }
             }
 
-            function toggleMexercise() {
-                var x = document.getElementById("manageexercises");
+            function toggleMuserdata() {
+                var x = document.getElementById("manageuserdata");
                 if (x.style.display === "none") {
                     x.style.display = "block";
                 } else {
@@ -35,8 +35,17 @@
                 }
             }
 
-            function toggleMuserdata() {
-                var x = document.getElementById("manageuserdata");
+            function toggleMhealthdata() {
+                var x = document.getElementById("managehealthdata");
+                if (x.style.display === "none") {
+                    x.style.display = "block";
+                } else {
+                    x.style.display = "none";
+                }
+            }
+
+            function toggleMexercise() {
+                var x = document.getElementById("manageexercise");
                 if (x.style.display === "none") {
                     x.style.display = "block";
                 } else {
@@ -51,16 +60,10 @@
         
         <button onclick="toggleMusers()">Manage Users</button>
         <button onclick="toggleMuserdata()">Manage User Data</button>
+        <button onclick="toggleMhealthdata()">Manage Health Data</button>
         <button onclick="toggleMexercise()">Manage Exercises</button>
         
-        <div id="manageuser"><br>
-            <form action="" method="POST">
-                Please enter a User ID to manage: <input type="text" name="mUserID" > <br>
-                Input New Username: <input type="text" name="mUsername"> <br>
-                Input New Password: <input type="text" name="mPassword"> <br>
-                Select Admin Rights: <input type="text" name="mAdmin" > <br>
-                <input type="submit" value="Update Details">
-            </form>
+        <div id="manageuser" style="display: none;"><br>
             <?php 
                 $username = "root"; 
                 $password = ""; 
@@ -70,10 +73,10 @@
 
                 echo '<table border="0" cellspacing="2" cellpadding="2"> 
                 <tr> 
-                    <td> <font face="Arial">USER ID</font> </td> 
-                    <td> <font face="Arial">Username</font> </td> 
-                    <td> <font face="Arial">Password</font> </td> 
-                    <td> <font face="Arial">Admin Rights</font> </td> 
+                    <td> USER ID </td> 
+                    <td> Username </td> 
+                    <td> Password </td> 
+                    <td> Admin Rights </td> 
                 </tr>';
 
                 if ($result = $mysqli->query($query)) {
@@ -89,12 +92,20 @@
                             <td>'.$admin.'</td> 
                             </tr>';
                     }
+                echo '</table>';
                 $result->free();
             }
             ?>
+            <form action="" method="POST">
+                Please enter a User ID to manage: <input type="text" name="mUserID" > <br>
+                Input New Username: <input type="text" name="mUsername"> <br>
+                Input New Password: <input type="text" name="mPassword"> <br>
+                Select Admin Rights: <input type="text" name="mAdmin" > <br>
+                <input type="submit" value="Update Details">
+            </form>
         </div>
         <br>
-        <div id="manageuserdata">
+        <div id="manageuserdata" style="display: none;">
             <br>
             <?php 
                 $username = "root"; 
@@ -105,10 +116,10 @@
 
                 echo '<table border="0" cellspacing="2" cellpadding="2"> 
                     <tr>
-                    <td> <font face="Arial">USER ID</font> </td> 
-                    <td> <font face="Arial">First Name</font> </td> 
-                    <td> <font face="Arial">Surname</font> </td> 
-                    <td> <font face="Arial">Date of Birth</font> </td> 
+                    <td> USER ID </td> 
+                    <td> First Name </td> 
+                    <td> Surname </td> 
+                    <td> Date of Birth </td> 
                     </tr>';
 
                 if ($result = $mysqli->query($query)) {
@@ -125,6 +136,64 @@
                         <td>'.$edob.'</td> 
                         </tr>';
                     }
+                    echo '</table>';
+                $result->free();
+                }
+            ?> 
+            <br>
+            <form action="" method="POST">
+                User Id: <input type="text" name="" > <br>
+                First Names: <input type="text" name="" > <br>
+                Surname: <input type="text" name="" > <br>
+                Date of Birth: <input type="date" name=""> <br>
+                <input type="submit" value="Update Details">
+            </form>
+        </div>
+        <br>
+        <div id="managehealthdata" style="display: none;">
+            <br>
+            <?php 
+                $username = "root"; 
+                $password = ""; 
+                $database = "health_app"; 
+                $mysqli = new mysqli("localhost", $username, $password, $database); 
+                $query = "SELECT * FROM health_data";
+
+                echo '<table border="0" cellspacing="2" cellpadding="2"> 
+                    <tr>
+                    <td> USER ID</td> 
+                    <td> Timstamp</td> 
+                    <td> Heart Rate</td> 
+                    <td> Body Temp</td>  
+                    <td> Blood Pressure</td>  
+                    <td> Blood Oxygen</td>  
+                    <td> Breathing Rate</td>  
+                    <td> ECG Details</td> 
+                    </tr>';
+
+                if ($result = $mysqli->query($query)) {
+                    while ($row = $result->fetch_assoc()) {
+                        $huserid = $row["user_id"];
+                        $htimestamp = $row["timestamp"];
+                        $hheartrate = $row["heartrate"];
+                        $hhbodtemp = $row["bodtemp"];
+                        $hblpressure = $row["blpressure"];
+                        $hbloxygen = $row["bloxygen"];
+                        $hbreathrate = $row["breathrate"];
+                        $hecgdet = $row["ecgdet"];
+
+                    echo '<tr>
+                        <td>'.$huserid.'</td> 
+                        <td>'.$htimestamp.'</td> 
+                        <td>'.$hheartrate.'</td> 
+                        <td>'.$hhbodtemp.'</td> 
+                        <td>'.$hblpressure.'</td> 
+                        <td>'.$hbloxygen.'</td> 
+                        <td>'.$hbreathrate.'</td> 
+                        <td>'.$hecgdet.'</td> 
+                        </tr>';
+                    }
+                    echo '</table>';
                 $result->free();
                 }
             ?> 
@@ -142,9 +211,9 @@
             </form>
         </div>
         <br>
-        <div id="manageexercises"> <br>
+        <div id="manageexercise" style="display: none;"> <br>
             <form action="" method="POST">
-                Excercise ID <input type="text" name="reminderdate" > <br>
+                Exercise ID <input type="text" name="exercise_id" > <br>
                 <input type="submit" value="Update Details">
             </form>
         </div>
