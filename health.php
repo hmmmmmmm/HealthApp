@@ -5,7 +5,8 @@
         if(!$_SESSION['user']) {
             header("location: index.php");
         }
-        $user = $_SESSION['user']; ?>
+        $user = $_SESSION['user'];
+        $user_id = $_SESSION['user_id']; ?>
         <link href="default.css" rel="stylesheet">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -39,7 +40,7 @@
         <p>Manage Your Personal Health Data</p>
         
         <button onclick="toggledisphdata()">Log Physiological Data</button>
-        <button onclick="toggleexcercise()">Log Excercise Data</button>
+        <button onclick="toggleexercise()">Log Excercise Data</button>
         <button onclick="togglereminder()">Log Reminder/Appointment</button>
         
 
@@ -56,7 +57,7 @@
             </form>
         </div>
 
-        <div id="addexcercise">
+        <div id="addexercise">
         Please enter your Exercise Details Below
             <form action="health.php" name="exercise" method="POST">
                 Exercise Name: <input type="text" name="ename" > <br>
@@ -85,8 +86,8 @@
                     x.style.display = "none";
                 }
             }
-            function toggleexcercise() {
-                var x = document.getElementById("addexcercise");
+            function toggleexercise() {
+                var x = document.getElementById("addexercise");
                 if (x.style.display === "none") {
                     x.style.display = "block";
                 } else {
@@ -125,7 +126,7 @@
                 $breathrate = $_POST['breathrate'];
                 $ecgdet = $_POST['ecgdet'];
                 
-                $query = "INSERT INTO health_data(user_id, timestamp, heartrate, bodtemp, blpressure, bloxygen, breathrate, ecgdet) VALUES ('$user', '$timestamp', '$heartrate', '$bodtemp', '$blpressure', '$bloxygen', '$breathrate', '$ecgdet')" ;
+                $query = "INSERT INTO health_data(user_id, timestamp, heartrate, bodtemp, blpressure, bloxygen, breathrate, ecgdet) VALUES ('$user_id', '$timestamp', '$heartrate', '$bodtemp', '$blpressure', '$bloxygen', '$breathrate', '$ecgdet')" ;
                 
             } else {
                 echo "all fields required";
@@ -136,7 +137,7 @@
                 $etime = $_POST['etime'];
                 $enotes = $_POST['enotes'];
 
-                $query = "INSERT INTO exercise_data(user_id, timestamp, ename, etime, enotes) VALUES ('$user', '$timestamp', '$ename', '$etime', '$enotes')";
+                $query = "INSERT INTO exercise_data(user_id, timestamp, ename, etime, enotes) VALUES ('$user_id', '$timestamp', '$ename', '$etime', '$enotes')";
             } else {
                 echo "All fields required";
             }
@@ -145,7 +146,7 @@
                 $reminderdate = $_POST['reminderdate'];
                 $reminderdetails = $_POST['reminderdetails'];
 
-                $query = "INSERT INTO reminders(user_id, timestamp, reminderdate, reminderdetails) VALUES ('$user', '$timestamp', '$reminderdate', '$reminderdetails')";
+                $query = "INSERT INTO reminders(user_id, timestamp, reminderdate, reminderdetails) VALUES ('$user_id', '$timestamp', '$reminderdate', '$reminderdetails')";
             } else {
                 echo "All fields required";
             }

@@ -30,6 +30,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(mysqli_num_rows($query) > 0) {
         if(($username == $row['username']) && password_verify($password, $row['password'])){
             $_SESSION['user'] = $username;
+            $_SESSION['user_id'] = $row['id'];
             $_SESSION['admin'] = $row['admin'];
             header ("location: home.php");
         } else {
