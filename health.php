@@ -7,44 +7,21 @@
         }
         $user = $_SESSION['user'];
         $user_id = $_SESSION['user_id']; ?>
-        <link href="default.css" rel="stylesheet">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <style>
-            #addhata {
-                width: 100%;
-                padding: 50px 0;
-                text-align: left;
-                background-color: #ccffff;
-                margin-top: 20px;
-            }
-            #addexcercise {
-                width: 100%;
-                padding: 50px 0;
-                text-align: left;
-                background-color: #ccffff;
-                margin-top: 20px;
-            }
-            #addreminder {
-                width: 100%;
-                padding: 50px 0;
-                text-align: left;
-                background-color: #ccffff;
-                margin-top: 20px;
-            }
-        </style>
         <title>A3 Health - Manage Personal Data</title>
+        <link href="default.css" rel="stylesheet">
     </head>
     <body>
         <?php include 'header.php'?>
         <p>Manage Your Personal Health Data</p>
         
         <button onclick="toggledisphdata()">Log Physiological Data</button>
-        <button onclick="toggleexercise()">Log Excercise Data</button>
+        <button onclick="toggleexercise()">Log Exercise Data</button>
         <button onclick="togglereminder()">Log Reminder/Appointment</button>
         
 
-        <div id="addhdata">
+        <div class="form" id="addhdata" style="display:none;">
             Please enter your Physiological Data Below <br>
             <form action="health.php" name="physio" method="POST">
                 Heartbeat/Pulse rate: <input type="text" name="heartrate" > <br>
@@ -57,7 +34,7 @@
             </form>
         </div>
 
-        <div id="addexercise">
+        <div class="form" id="addexercise" style="display:none;">
         Please enter your Exercise Details Below
             <form action="health.php" name="exercise" method="POST">
                 Exercise Name: <input type="text" name="ename" > <br>
@@ -67,11 +44,11 @@
             </form>
         </div>
 
-        <div id="addreminder">
+        <div class= "form" id="addreminder" style="display:none;">
         Please enter the date of your reminder/appointment followed by the details
 
             <form action="health.php" name="appointment" method="POST">
-                Date of Reminder/Appointment: <input type="text" name="reminderdate" > <br>
+                Date of Reminder/Appointment: <input type="datetime-local" name="reminderdate" > <br>
                 Reminder Details: <input type="text" name="reminderdetails"> <br>
                 <input type="submit" name="appointment" value="Save Reminder/Appointment">
             </form>

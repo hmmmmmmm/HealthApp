@@ -235,3 +235,11 @@ nav .logo.space{
 .content .space{
   margin: 10px 0;
 }
+
+.form {
+  width: 100%;
+  padding: 50px 0;
+  text-align: left;
+  background-color: #ccffff;
+  margin-top: 20px;
+}
