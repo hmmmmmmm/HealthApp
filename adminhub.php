@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <?php session_start();
-        $link = mysqli_connect("localhost", "root", "", "health_app");
+        $link = new mysqli("localhost", "root", "", "health_app");
         if(!$_SESSION['user']) {
             header("location: index.php");
         }
@@ -11,7 +11,81 @@
         $row = mysqli_fetch_array($query);
         if($_SESSION['admin'] == 0) {
             header("location: home.php");
-        } ?>
+        } 
+        
+        $users = array();
+        $query = "SELECT * FROM users";
+        if ($result = $link->query($query)) {
+            while ($row = $result->fetch_assoc()) {
+                $id = $row["id"];
+                $uname = $row["username"];
+                $pword = $row["password"];
+                $admin = $row["admin"];
+                
+                $users[] = $row;
+            }
+        }
+        
+        $user_details = array();
+        $query = "SELECT * FROM user_details";
+        if ($result = $link->query($query)) {
+            while ($row = $result->fetch_assoc()) {
+                $euserid = $row["user_id"];
+                $efirstname = $row["first_names"];
+                $esurname = $row["surname"];
+                $edob = $row["date_of_birth"];
+                
+                $user_details[] = $row;
+            }
+        }
+
+        $health_data = array();
+        $query = "SELECT * FROM health_data";
+        if ($result = $link->query($query)) {
+            while ($row = $result->fetch_assoc()) {
+                $huserid = $row["user_id"];
+                $htimestamp = $row["timestamp"];
+                $hheartrate = $row["heartrate"];
+                $hhbodtemp = $row["bodtemp"];
+                $hblpressure = $row["blpressure"];
+                $hbloxygen = $row["bloxygen"];
+                $hbreathrate = $row["breathrate"];
+                $hecgdet = $row["ecgdet"];
+
+                $health_data[] = $row;
+            }
+        }
+
+        $exercise_data = array();
+        $query = "SELECT * FROM exercise_data";
+        if ($result = $link->query($query)) {
+            while ($row = $result->fetch_assoc()) {
+                $euserid = $row["user_id"];
+                $etimestamp = $row["timestamp"];
+                $ename = $row["ename"];
+                $etime = $row["etime"];
+                $enotes = $row["enotes"];
+                $eid = $row["exercise_id"];
+
+                $exercise_data[] = $row;
+            }
+        }
+
+        $reminders = array();
+        $query = "SELECT * FROM reminders";
+        if ($result = $link->query($query)) {
+            while ($row = $result->fetch_assoc()) {
+                $ruserid = $row["user_id"];
+                $rtimestamp = $row["timestamp"];
+                $rdate = $row["reminderdate"];
+                $rdetails = $row["reminderdetails"];
+                $rid = $row["reminder_id"];
+
+                $reminders[] = $row;
+            }
+        }
+
+        ?>
         <link href="default.css" rel="stylesheet">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,12 +103,6 @@
         
         <div id="manageuser" style="display: none;"><br>
             <?php 
-                $username = "root"; 
-                $password = ""; 
-                $database = "health_app"; 
-                $mysqli = new mysqli("localhost", $username, $password, $database); 
-                $query = "SELECT * FROM users";
-
                 echo '<table border="0" cellspacing="2" cellpadding="2"> 
                 <tr> 
                     <td> USER ID </td> 
@@ -43,22 +111,15 @@
                     <td> Admin Rights </td> 
                 </tr>';
 
-                if ($result = $mysqli->query($query)) {
-                    while ($row = $result->fetch_assoc()) {
-                        $id = $row["id"];
-                        $uname = $row["username"];
-                        $pword = $row["password"];
-                        $admin = $row["admin"];
-                        echo '<tr> 
-                            <td>'.$id.'</td> 
-                            <td>'.$uname.'</td> 
-                            <td>'.$pword.'</td> 
-                            <td>'.$admin.'</td> 
-                            </tr>';
-                    }
+                foreach($users as $row){
+                    echo '<tr>
+                        <td>'.$row['id'].'</td> 
+                        <td>'.$row['username'].'</td> 
+                        <td>'.$row['password'].'</td> 
+                        <td>'.$row['admin'].'</td> 
+                        </tr>';
+                }
                 echo '</table>';
-                $result->free();
-            }
             ?>
             <form action="" method="POST">
                 Please enter a User ID to manage: <input type="text" name="mUserID" > <br>
@@ -72,37 +133,23 @@
         <div id="manageuserdata" style="display: none;">
             <br>
             <?php 
-                $username = "root"; 
-                $password = ""; 
-                $database = "health_app"; 
-                $mysqli = new mysqli("localhost", $username, $password, $database); 
-                $query = "SELECT * FROM user_details";
-
                 echo '<table border="0" cellspacing="2" cellpadding="2"> 
                     <tr>
                     <td> USER ID </td> 
-                    <td> First Name </td> 
+                    <td> First Names </td> 
                     <td> Surname </td> 
                     <td> Date of Birth </td> 
                     </tr>';
 
-                if ($result = $mysqli->query($query)) {
-                    while ($row = $result->fetch_assoc()) {
-                        $euserid = $row["user_id"];
-                        $efirstname = $row["first_names"];
-                        $esurname = $row["surname"];
-                        $edob = $row["date_of_birth"];
-
+                foreach($user_details as $row){
                     echo '<tr>
-                        <td>'.$euserid.'</td> 
-                        <td>'.$efirstname.'</td> 
-                        <td>'.$esurname.'</td> 
-                        <td>'.$edob.'</td> 
+                        <td>'.$row['user_id'].'</td> 
+                        <td>'.$row['first_names'].'</td> 
+                        <td>'.$row['surname'].'</td> 
+                        <td>'.$row['date_of_birth'].'</td> 
                         </tr>';
-                    }
-                    echo '</table>';
-                $result->free();
                 }
+                echo "</table>";
             ?> 
             <br>
             <form action="" method="POST">
@@ -117,12 +164,6 @@
         <div id="managehealthdata" style="display: none;">
             <br>
             <?php 
-                $username = "root"; 
-                $password = ""; 
-                $database = "health_app"; 
-                $mysqli = new mysqli("localhost", $username, $password, $database); 
-                $query = "SELECT * FROM health_data";
-
                 echo '<table border="0" cellspacing="2" cellpadding="2"> 
                     <tr>
                     <td> USER ID</td> 
@@ -134,17 +175,17 @@
                     <td> Breathing Rate</td>  
                     <td> ECG Details</td> 
                     </tr>';
+                
+                foreach($health_data as $row){
 
-                if ($result = $mysqli->query($query)) {
-                    while ($row = $result->fetch_assoc()) {
-                        $huserid = $row["user_id"];
-                        $htimestamp = $row["timestamp"];
-                        $hheartrate = $row["heartrate"];
-                        $hhbodtemp = $row["bodtemp"];
-                        $hblpressure = $row["blpressure"];
-                        $hbloxygen = $row["bloxygen"];
-                        $hbreathrate = $row["breathrate"];
-                        $hecgdet = $row["ecgdet"];
+                    $huserid = $row["user_id"];
+                    $htimestamp = $row["timestamp"];
+                    $hheartrate = $row["heartrate"];
+                    $hhbodtemp = $row["bodtemp"];
+                    $hblpressure = $row["blpressure"];
+                    $hbloxygen = $row["bloxygen"];
+                    $hbreathrate = $row["breathrate"];
+                    $hecgdet = $row["ecgdet"];
 
                     echo '<tr>
                         <td>'.$huserid.'</td> 
@@ -156,10 +197,8 @@
                         <td>'.$hbreathrate.'</td> 
                         <td>'.$hecgdet.'</td> 
                         </tr>';
-                    }
-                    echo '</table>';
-                $result->free();
                 }
+                echo '</table>';
             ?> 
             <br>
             <form action="" method="POST">
@@ -175,14 +214,75 @@
             </form>
         </div>
         <br>
-        <div id="manageexercise" style="display: none;"> <br>
+        <div id="manageexercise" style="display: none;">
+            <br>
+            <?php 
+                echo '<table border="0" cellspacing="2" cellpadding="2"> 
+                    <tr>
+                    <td>Exercise ID</td>
+                    <td>USER ID</td>
+                    <td>Timestamp</td>
+                    <td>Exercise Name</td>
+                    <td>Exercise Length</td>
+                    <td>Exercise Notes</td>
+                    </tr>';
+                
+                foreach($exercise_data as $row){
+
+                    $euserid = $row["user_id"];
+                    $etimestamp = $row["timestamp"];
+                    $ename = $row["ename"];
+                    $etime = $row["etime"];
+                    $enotes = $row["enotes"];
+                    $exercise_id = $row["exercise_id"];
+
+                    echo '<tr>
+                        <td>'.$exercise_id.'</td>
+                        <td>'.$euserid.'</td>
+                        <td>'.$etimestamp.'</td>
+                        <td>'.$ename.'</td>
+                        <td>'.$etime.'</td>
+                        <td>'.$enotes.'</td>
+                        </tr>';
+                }
+                echo '</table>';
+            ?> 
             <form action="" method="POST">
                 Exercise ID <input type="text" name="exercise_id" > <br>
                 <input type="submit" value="Update Details">
             </form>
         </div>
         <br>
-        <div id="managereminders" style="display: none;"> <br>
+        <div id="managereminders" style="display: none;">
+            <br>
+            <?php 
+                echo '<table border="0" cellspacing="2" cellpadding="2"> 
+                    <tr>
+                    <td>Reminder ID</td>
+                    <td>USER ID</td> 
+                    <td>Timestamp</td> 
+                    <td>Reminder Date</td> 
+                    <td>Reminder Details</td>
+                    </tr>';
+                
+                foreach($reminders as $row){
+
+                    $ruserid = $row["user_id"];
+                    $rtimestamp = $row["timestamp"];
+                    $reminderdate = $row["reminderdate"];
+                    $reminderdetails = $row["reminderdetails"];
+                    $reminder_id = $row["reminder_id"];
+
+                    echo '<tr>
+                        <td>'.$reminder_id.'</td>
+                        <td>'.$ruserid.'</td>
+                        <td>'.$rtimestamp.'</td>
+                        <td>'.$reminderdate.'</td>
+                        <td>'.$reminderdetails.'</td>
+                        </tr>';
+                }
+                echo '</table>';
+            ?> 
             <form action="" method="POST">
                 Reminder ID <input type="text" name="" > <br>
                 <input type="submit" value="Update Details">
