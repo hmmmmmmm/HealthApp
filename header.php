@@ -6,7 +6,7 @@ if(isset($_SESSION['admin']) && $_SESSION['admin']){
 }
 
 if(isset($_SESSION['user'])){
-    $navbuttons='<li><a href="health.php">Health Data</a></li> <li><a href="logout.php">Logout</a></li>';
+    $navbuttons='<li><a href="health.php">Manage Data</a></li> <li><a href="logout.php">Logout</a></li>';
 } else {
     $navbuttons='<li><a href="register.php">Register</a></li> <li><a href="login.php">Login</a></li>';
 }

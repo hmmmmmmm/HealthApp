@@ -26,7 +26,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     $hash = password_hash($password, PASSWORD_DEFAULT);
 
-    $query = mysqli_query($link, "Select * from users");
+    $query = mysqli_query($link, "SELECT * from users");
     while($row = mysqli_fetch_array($query)){
         if($username == $row['username']) {
             $bool = false;

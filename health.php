@@ -45,34 +45,34 @@
 
         <div id="addhdata">
             Please enter your Physiological Data Below <br>
-            <form action="health.php" method="POST">
+            <form action="health.php" name="physio" method="POST">
                 Heartbeat/Pulse rate: <input type="text" name="heartrate" > <br>
                 Body Temperature: <input type="text" name="bodtemp"> <br>
                 Blood Pressure: <input type="text" name="blpressure"> <br>
                 Blood Oxygen: <input type="text" name="bloxygen" > <br>
                 Breathing/Respiration Rate: <input type="text" name="breathrate" > <br>
                 ECG Details: <input type="text" name="ecgdet" > <br>
-                <input type="submit" value="Save Physiological Data">
+                <input type="submit" name="physio" value="Save Physiological Data">
             </form>
         </div>
 
         <div id="addexcercise">
         Please enter your Exercise Details Below
-            <form action="health.php" method="POST">
+            <form action="health.php" name="exercise" method="POST">
                 Exercise Name: <input type="text" name="ename" > <br>
                 Exercise Duration: <input type="text" name="etime"> <br>
                 Exercise Notes: <input type="text" name="enotes"> <br>
-                <input type="submit" value="Save Excercise Details">
+                <input type="submit" name="exercise" value="Save Excercise Details">
             </form>
         </div>
 
         <div id="addreminder">
         Please enter the date of your reminder/appointment followed by the details
 
-            <form action="health.php" method="POST">
+            <form action="health.php" name="appointment" method="POST">
                 Date of Reminder/Appointment: <input type="text" name="reminderdate" > <br>
                 Reminder Details: <input type="text" name="reminderdetails"> <br>
-                <input type="submit" value="Save Reminder/Appointment">
+                <input type="submit" name="appointment" value="Save Reminder/Appointment">
             </form>
         </div>
 
@@ -111,33 +111,45 @@
     $password = "";
     $dbname = "health_app";
 
-    $conn = mysqli_connect($server , $username , $password , $dbname);
+    $conn = new mysqli($server , $username , $password , $dbname);
 
-    if(isset($_POST['submit'])){
-        if(!empty($_POST['bodtemp']) && !empty($_POST['blpressure']) && !empty($_POST['bloxygen']) && !empty($_POST['breathrate']) && !empty($_POST['ecgdet'])){
-            
-            $bodtemp = $_POST['bodtemp'];
-            $blpressure = $_POST['blpressure'];
-            $bloxygen = $_POST['bloxygen'];
-            $breathrate = $_POST['breathrate'];
-            $ecgdet = $_POST['ecgdet'];
-            
-            $query = "insert into health_data(bodtemp, blpressure, bloxygen, breathrate, ecgdet) values ('$bodtemp', '$blpressure', '$bloxygen', '$breathrate', '$ecgdet')" ;
-            $run = mysqli_query($conn, $query) or die(mysqli_error());
-            
-            if ($run){
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+        $timestamp = date('Y-m-d H:i:s');
+        if(isset($_POST['physio'])){
+            if(!empty($_POST['bodtemp']) && !empty($_POST['heartrate']) && !empty($_POST['blpressure']) && !empty($_POST['bloxygen']) && !empty($_POST['breathrate']) && !empty($_POST['ecgdet'])){
                 
-                echo "Health Data Submitted Successfully";
+                $heartrate = $_POST['heartrate'];
+                $bodtemp = $_POST['bodtemp'];
+                $blpressure = $_POST['blpressure'];
+                $bloxygen = $_POST['bloxygen'];
+                $breathrate = $_POST['breathrate'];
+                $ecgdet = $_POST['ecgdet'];
+                
+                $query = "INSERT INTO health_data(user_id, timestamp, heartrate, bodtemp, blpressure, bloxygen, breathrate, ecgdet) VALUES ('$user', '$timestamp', '$heartrate', '$bodtemp', '$blpressure', '$bloxygen', '$breathrate', '$ecgdet')" ;
                 
             } else {
-                
-                echo "Health Data Not Submitted, Please recheck and try again";
+                echo "all fields required";
             }
-            
-            
+        } else if(isset($_POST['exercise'])){
+            if(!empty($_POST['ename']) && !empty($_POST['etime']) && !empty($_POST['enotes'])){
+                $ename = $_POST['ename'];
+                $etime = $_POST['etime'];
+                $enotes = $_POST['enotes'];
+
+                $query = "INSERT INTO exercise_data(user_id, timestamp, ename, etime, enotes) VALUES ('$user', '$timestamp', '$ename', '$etime', '$enotes')";
+            } else {
+                echo "All fields required";
+            }
+        } else if(isset($_POST['appointment'])){
+            if(!empty($_POST['reminderdate']) && !empty($_POST['reminderdetails'])){
+                $reminderdate = $_POST['reminderdate'];
+                $reminderdetails = $_POST['reminderdetails'];
+
+                $query = "INSERT INTO reminders(user_id, timestamp, reminderdate, reminderdetails) VALUES ('$user', '$timestamp', '$reminderdate', '$reminderdetails')";
+            } else {
+                echo "All fields required";
+            }
         }
-        else {
-            echo "all fields required";
-        }
+        mysqli_query($conn, $query);
     }
 ?>
