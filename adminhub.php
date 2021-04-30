@@ -363,8 +363,8 @@
                 echo "All fields required";
             }
         }
-        echo '<script>alert("'.$updatequery.'");</script>';
-        mysqli_query($conn, $updatequery);
+        // echo '<script>alert("'.$updatequery.'");</script>';
+        // mysqli_query($conn, $updatequery);
         $conn->close();
     }
 ?>
