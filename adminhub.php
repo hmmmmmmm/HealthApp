@@ -84,7 +84,7 @@
                 $reminders[] = $row;
             }
         }
-
+        $link->close();
         ?>
         <link href="default.css" rel="stylesheet">
         <meta charset="UTF-8">
@@ -122,7 +122,7 @@
                 echo '</table>';
             ?>
             <form action="adminhub.php" name="update_user" method="POST">
-                Please enter a User ID to manage: <input type="text" name="mUserID" > <br>
+                Please enter a User ID to manage: <input type="text" name="mUserID"> <br>
                 Input New Username: <input type="text" name="mUsername"> <br>
                 Input New Password: <input type="text" name="mPassword"> <br>
                 Select Admin Rights: <input type="text" name="mAdmin" > <br>
@@ -151,9 +151,9 @@
             ?> 
             <br>
             <form action="adminhub.php" name="update_user_details" method="POST">
-                User ID: <input type="text" name="" > <br>
-                First Names: <input type="text" name="" > <br>
-                Surname: <input type="text" name="" > <br>
+                User ID: <input type="text" name=""> <br>
+                First Names: <input type="text" name=""> <br>
+                Surname: <input type="text" name=""> <br>
                 Date of Birth: <input type="date" name=""> <br>
                 <input type="submit" name="update_user_details" value="Update Details">
             </form>
@@ -202,14 +202,14 @@
             <br>
             Enter the details to modify below:
             <form action="adminhub.php" name="update_physio" method="POST">
-                User ID: <input type="text" name="" > <br>
-                Checkin ID: <input type="text" name="" > <br>
-                Heartbeat/Pulse rate: <input type="text" name="" > <br>
+                User ID: <input type="text" name=""> <br>
+                Checkin ID: <input type="text" name=""> <br>
+                Heartbeat/Pulse rate: <input type="text" name=""> <br>
                 Body Temperature: <input type="text" name=""> <br>
                 Blood Pressure: <input type="text" name=""> <br>
-                Blood Oxygen: <input type="text" name="" > <br>
-                Breathing/Respiration Rate: <input type="text" name="" > <br>
-                ECG Details: <input type="text" name="" > <br>
+                Blood Oxygen: <input type="text" name=""> <br>
+                Breathing/Respiration Rate: <input type="text" name=""> <br>
+                ECG Details: <input type="text" name=""> <br>
                 <input type="submit" name="update_physio" value="Update Details">
             </form>
         </div>
@@ -309,30 +309,20 @@
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         $timestamp = date('Y-m-d H:i:s');
-        if(isset($_POST['update_user'])){
-            if(isset($_POST['mUserId'])){
+        if(!empty($_POST['update_user'])){
+            if(!empty($_POST['mUserId'])){
                 $mUserID = $_POST['mUserId'];
                 $mUsername = $_POST['mUsername'];
                 $mPassword = password_hash($_POST['mPassword'], PASSWORD_DEFAULT);
                 $mAdmin = $_POST['mAdmin'];
 
-                $query = "UPDATE users SET";
-                if(!isset($_POST['mUsername'])){
-                    $query .= " username = '$mUsername',";
-                }
-                if(!isset($_POST['mPassword'])){
-                    $query .= " password = '$mPassword',";
-                }
-                if(!isset($_POST['mAdmin'])){
-                    $query .= " admin = '$mAdmin'";
-                }
-                $query .= " WHERE id = '$mUserID'";
+                $updatequery = "UPDATE users SET username = '$mUsername', password = '$mPassword', admin = '$mAdmin' WHERE id = $mUserID";
             }
         }
-        if(isset($_POST['update_user_details'])){
+        if(!empty($_POST['update_user_details'])){
 
         }
-        if(isset($_POST['update_physio'])){
+        if(!empty($_POST['update_physio'])){
             if(!empty($_POST['bodtemp']) && !empty($_POST['heartrate']) && !empty($_POST['blpressure']) && !empty($_POST['bloxygen']) && !empty($_POST['breathrate']) && !empty($_POST['ecgdet'])){
                 
                 $heartrate = $_POST['heartrate'];
@@ -342,24 +332,24 @@
                 $breathrate = $_POST['breathrate'];
                 $ecgdet = $_POST['ecgdet'];
                 
-                $query = "INSERT INTO health_data(user_id, timestamp, heartrate, bodtemp, blpressure, bloxygen, breathrate, ecgdet) VALUES ('$user_id', '$timestamp', '$heartrate', '$bodtemp', '$blpressure', '$bloxygen', '$breathrate', '$ecgdet')" ;
+                $updatequery = "INSERT INTO health_data(user_id, timestamp, heartrate, bodtemp, blpressure, bloxygen, breathrate, ecgdet) VALUES ('$user_id', '$timestamp', '$heartrate', '$bodtemp', '$blpressure', '$bloxygen', '$breathrate', '$ecgdet')" ;
                 
             } else {
                 echo "all fields required";
             }
         }
-        if(isset($_POST['update_exercise'])){
+        if(!empty($_POST['update_exercise'])){
             if(!empty($_POST['ename']) && !empty($_POST['etime']) && !empty($_POST['enotes'])){
                 $ename = $_POST['ename'];
                 $etime = $_POST['etime'];
                 $enotes = $_POST['enotes'];
 
-                $query = "INSERT INTO exercise_data(user_id, timestamp, ename, etime, enotes) VALUES ('$user_id', '$timestamp', '$ename', '$etime', '$enotes')";
+                $updatequery = "INSERT INTO exercise_data(user_id, timestamp, ename, etime, enotes) VALUES ('$user_id', '$timestamp', '$ename', '$etime', '$enotes')";
             } else {
                 echo "All fields required";
             }
         }
-        if(isset($_POST['update_appointment'])){
+        if(!empty($_POST['update_appointment'])){
             if(!empty($_POST['reminderdate']) && !empty($_POST['reminderdetails'])){
                 $reminderdate = new DateTime($_POST['reminderdate']);
                 $remindertime = new DateTime($_POST['remindertime']);
@@ -368,11 +358,13 @@
                 
                 $reminderdetails = $_POST['reminderdetails'];
 
-                $query = "INSERT INTO reminders(user_id, timestamp, reminderdate, reminderdetails) VALUES ('$user_id', '$timestamp', '$datetime', '$reminderdetails')";
+                $updatequery = "INSERT INTO reminders(user_id, timestamp, reminderdate, reminderdetails) VALUES ('$user_id', '$timestamp', '$datetime', '$reminderdetails')";
             } else {
                 echo "All fields required";
             }
         }
-        mysqli_query($conn, $query);
+        echo '<script>alert("'.$updatequery.'");</script>';
+        mysqli_query($conn, $updatequery);
+        $conn->close();
     }
 ?>
