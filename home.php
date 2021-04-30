@@ -14,6 +14,12 @@
     </head>
     <body>
         <?php include 'header.php'?>
-        <p>Welcome to A3 Health, <?php Print "$user"?>!</p>
+        <div class="welcomeMessage"<p>Welcome to A3 Health, <?php Print "$user"?>!</p></div>
+		
+		<div class="b4">
+		<img src="healthBanner.png" alt="webpage banner" class="logo"> 
+		</div>
+		
+		
     </body>
 </html>

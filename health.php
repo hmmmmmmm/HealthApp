@@ -14,45 +14,83 @@
     </head>
     <body>
         <?php include 'header.php'?>
-        <p>Manage Your Personal Health Data</p>
-        
-        <button onclick="toggledisphdata()">Log Physiological Data</button>
-        <button onclick="toggleexercise()">Log Exercise Data</button>
-        <button onclick="togglereminder()">Log Reminder/Appointment</button>
-        
-
-        <div class="form" id="addhdata" style="display:none;">
-            Please enter your Physiological Data below <br>
-            <form action="health.php" name="physio" method="POST">
-                Heartbeat/Pulse rate: <input type="text" name="heartrate" > <br>
-                Body Temperature: <input type="text" name="bodtemp"> <br>
-                Blood Pressure: <input type="text" name="blpressure"> <br>
-                Blood Oxygen: <input type="text" name="bloxygen" > <br>
-                Breathing/Respiration Rate: <input type="text" name="breathrate" > <br>
-                ECG Details: <input type="text" name="ecgdet" > <br>
-                <input type="submit" name="physio" value="Save Physiological Data">
-            </form>
+        <div class="o"><p>Manage Your Personal Health Data</p></div>
+        <div class="adminHub">
+        <button class="btnstyles2" onclick="toggledisphdata()">Log Physiological Data</button>
+        <button class="btnstyles2" onclick="toggleexercise()">Log Exercise Data</button>
+        <button class="btnstyles2" onclick="togglereminder()">Log Reminder/Appointment</button>
         </div>
 
+		
+        <div class="form" id="addhdata" style="display:none;">
+		<div class="b5">
+            Please enter your Physiological Data below <br>
+            <form action="health.php" name="physio" method="POST">
+			
+				<div class="form-group1">
+                Heartbeat/Pulse rate: <input type="text" name="heartrate" > <br>
+				</div>
+				<div class="form-group1">
+                Body Temperature: <input type="text" name="bodtemp"> <br>
+				</div>
+				<div class="form-group1">
+                Blood Pressure: <input type="text" name="blpressure"> <br>
+				</div>
+				<div class="form-group1">
+                Blood Oxygen: <input type="text" name="bloxygen" > <br>
+				</div>
+				<div class="form-group1">
+                Breathing/Respiration Rate: <input type="text" name="breathrate" > <br>
+				</div>
+				<div class="form-group1">
+                ECG Details: <input type="text" name="ecgdet" > <br>
+				</div>
+				<br>
+                <input class="btnstyles2" type="submit" name="physio" value="Save Physiological Data">
+            </form>
+			</div>
+        </div>
+		
+
         <div class="form" id="addexercise" style="display:none;">
+		<div class="b5">
         Please enter your Exercise Details below
             <form action="health.php" name="exercise" method="POST">
+			
+				<div class="form-group1">
                 Exercise Name: <input type="text" name="ename" > <br>
+				</div>
+				<div class="form-group1">
                 Exercise Duration: <input type="text" name="etime"> <br>
+				</div>
+				<div class="form-group1">
                 Exercise Notes: <input type="text" name="enotes"> <br>
-                <input type="submit" name="exercise" value="Save Exercise Details">
+				</div>
+				<br>
+                <input class="btnstyles2" type="submit" name="exercise" value="Save Exercise Details">
             </form>
+			</div>
         </div>
 
         <div class= "form" id="addreminder" style="display:none;">
+		<div class="b5">
         Please enter the date of your reminder/appointment followed by the details
 
             <form action="health.php" name="appointment" method="POST">
+			
+				<div class="form-group1">
                 Date of Reminder/Appointment: <input type="date" name="reminderdate"> <br>
+				</div>
+				<div class="form-group1">
                 Time of Reminder/Appointment: <input type="time" name="remindertime"> <br>
+				</div>
+				<div class="form-group1">
                 Reminder Details: <input type="text" name="reminderdetails"> <br>
-                <input type="submit" name="appointment" value="Save Reminder/Appointment">
+				</div>
+				<br>
+                <input class="btnstyles2" type="submit" name="appointment" value="Save Reminder/Appointment">
             </form>
+			</div>
         </div>
     </body>
     <script src="toggledisplay.js"></script>
