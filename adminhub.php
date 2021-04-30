@@ -101,7 +101,6 @@
         <div class="adminHub">
         <button class="btnstyles2" type="login" onclick="toggleMusers()">Manage Users</button>
 		<br>
-		<br>
         <button class="btnstyles2" type="login" onclick="toggleMuserdata()">Manage User Data</button>
 		<br>
         <button class="btnstyles2" type="login" onclick="toggleMhealthdata()">Manage Health Data</button>
