@@ -94,16 +94,27 @@
         <title>Admin Hub - Manage All Data</title>
     </head>
     <body>
+	
         <?php include 'header.php'?>
-        <p>Admin Hub - Manage all Data</p>
-        
-        <button onclick="toggleMusers()">Manage Users</button>
-        <button onclick="toggleMuserdata()">Manage User Data</button>
-        <button onclick="toggleMhealthdata()">Manage Health Data</button>
-        <button onclick="toggleMexercise()">Manage Exercises</button>
-        <button onclick="toggleMreminders()">Manage Reminders</button>
+		
+        <div class="o"><p>Admin Hub - Manage all Data</p></div>
+        <div class="adminHub">
+        <button class="btnstyles2" type="login" onclick="toggleMusers()">Manage Users</button>
+		<br>
+		<br>
+        <button class="btnstyles2" type="login" onclick="toggleMuserdata()">Manage User Data</button>
+		<br>
+        <button class="btnstyles2" type="login" onclick="toggleMhealthdata()">Manage Health Data</button>
+		<br>
+        <button class="btnstyles2" type="login" onclick="toggleMexercise()">Manage Exercises</button>
+		<br>
+        <button class="btnstyles2" type="login" onclick="toggleMreminders()">Manage Reminders</button>
+	
+		</div>
+		
         
         <div class="form" id="manageuser" style="display: none;">
+		
             <?php 
                 echo '<table border="0" cellspacing="2" cellpadding="2"> 
                     <tr> 
@@ -123,13 +134,25 @@
                 }
                 echo '</table>';
             ?>
-            <form action="adminhub.php" name="update_user" method="POST">
-                Please enter a User ID to manage: <input type="text" name="mUserID"> <br>
+            <div class="b5">
+			<form action="adminhub.php" name="update_user" method="POST" id="myForm">
+                <div class="form-group1">
+				Please enter a User ID to manage: <input type="text" name="mUserID"> <br>
+				</div>
+				<div class="form-group1">
                 Input New Username: <input type="text" name="mUsername"> <br>
+				</div>
+				<div class="form-group1">
                 Input New Password: <input type="text" name="mPassword"> <br>
+				</div>
+				<div class="form-group1">
                 Select Admin Rights: <input type="text" name="mAdmin" > <br>
-                <input type="submit" name="update_user" value="Update Details">
+				</div>
+				<br>
+                <input class="btnstyle3" type="submit" name="update_user" value="Update Details">
             </form>
+			</div>
+			
         </div>
         <div class="form" id="manageuserdata" style="display: none;">
             <?php 
@@ -152,12 +175,24 @@
                 echo "</table>";
             ?> 
             <br>
+			<div class="b5">
             <form action="adminhub.php" name="update_user_details" method="POST">
+			
+				<div class="form-group1">
                 User ID: <input type="text" name="dUserID"> <br>
+				</div>
+				<div class="form-group1">
                 First Names: <input type="text" name="dFirstNames"> <br>
+				</div>
+				<div class="form-group1">
                 Surname: <input type="text" name="dSurname"> <br>
+				</div>
+				<div class="form-group1">
                 Date of Birth: <input type="date" name="dDOB"> <br>
-                <input type="submit" name="update_user_details" value="Update Details">
+				</div>
+				<br>
+                <input class="btnstyle3"type="submit" name="update_user_details" value="Update Details">
+				</div>
             </form>
         </div>
         <div class="form" id="managehealthdata" style="display: none;">
@@ -202,18 +237,36 @@
                 echo '</table>';
             ?> 
             <br>
+			<div class="b5">
             Enter the details to modify below:
+
             <form action="adminhub.php" name="update_physio" method="POST">
+			<div class="form-group1">
                 Checkin ID: <input type="text" name="pCheckinID"> <br>
+				</div>
+				<div class="form-group1">
                 Heartbeat/Pulse rate: <input type="text" name="pHeartrate"> <br>
+				</div>
+				<div class="form-group1">
                 Body Temperature: <input type="text" name="pBodtemp"> <br>
+				</div>
+				<div class="form-group1">
                 Blood Pressure: <input type="text" name="pBlpressure"> <br>
+				</div>
+				<div class="form-group1">
                 Blood Oxygen: <input type="text" name="pBloxygen"> <br>
+				</div>
+				<div class="form-group1">
                 Breathing/Respiration Rate: <input type="text" name="pBreathrate"> <br>
+				</div>
+				<div class="form-group1">
                 ECG Details: <input type="text" name="pEcgdet"> <br>
-                <input type="submit" name="update_physio" value="Update Details">
+				</div>
+				<br>
+                <input class= "btnstyle3" type="submit" name="update_physio" value="Update Details">
             </form>
         </div>
+		</div>
         <div class="form" id="manageexercise" style="display: none;">
             <?php 
                 echo '<table border="0" cellspacing="2" cellpadding="2"> 
@@ -247,15 +300,27 @@
                 echo '</table>';
             ?>
             <br>
+			<div class="b3">
             Please enter the Exercise Details to modify below
             <form action="adminhub.php" name="update_exercise" method="POST">
+			
+				<div class="form-group1">
                 Exercise ID: <input type = "text" name="eID"> <br>
+				</div>
+				<div class="form-group1">
                 Exercise Name: <input type="text" name="eName"> <br>
+				</div>
+				<div class="form-group1">
                 Exercise Duration: <input type="text" name="eTime"> <br>
+				</div>
+				<div class="form-group1">
                 Exercise Notes: <input type="text" name="eNotes"> <br>
-                <input type="submit" name="update_exercise" value="Save Exercise Details">
+				</div>
+				<br>
+                <input class="btnstyle3" type="submit" name="update_exercise" value="Save Exercise Details">
             </form>
         </div>
+		</div>
         <div class="form" id="managereminders" style="display: none;">
             <?php 
                 echo '<table border="0" cellspacing="2" cellpadding="2"> 
@@ -287,14 +352,25 @@
             ?>
             <br>
             Please enter the date of your reminder/appointment followed by the details
-    
+            <div class="b5">
             <form action="adminhub.php" name="update_appointment" method="POST">
+			
+				<div class="form-group1">
                 Reminder ID: <input type="text" name="rID"> <br>
+				</div>
+				<div class="form-group1">
                 Date of Reminder/Appointment: <input type="date" name="rDate"> <br>
+				</div>
+				<div class="form-group1">
                 Time of Reminder/Appointment: <input type="time" name="rTime"> <br>
+				</div>
+				<div class="form-group1">
                 Reminder Details: <input type="text" name="rDetails"> <br>
-                <input type="submit" name="update_appointment" value="Save Reminder/Appointment">
+				</div>
+				</br>
+                <input class="btnstyle3" type="submit" name="update_appointment" value="Save Reminder/Appointment">
             </form>
+			</div>
         </div>
     </body>
     <script src="toggledisplay.js"></script>

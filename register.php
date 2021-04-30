@@ -8,12 +8,23 @@
     </head>
     <body>
         <?php include 'header.php'?>
+		<section>
+       <div class="b3">
         <p>Register for an A3 Health account</p>
-        <form action="register.php" method="POST">
+		<br>
+        <form action="register.php" method="POST" id="myForm">
+		<div class="form-group">
             Username: <input type="text" name="username" required="required"> <br>
+			</div>
+			<br>
+			<div class="form-group">
             Password: <input type="password" name="password" required="required"> <br>
-            <input type="submit" value="Register">
+			</div>
+			<br>
+            <input type="submit" value="Register" class="btnstyle2">
         </form>
+		</div>
+		</section>
     </body>
 </html>
 
